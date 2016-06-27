@@ -48,7 +48,7 @@ controller.hears(['hungry'], ['direct_message', 'direct_mention'], (bot, message
 });
 
 function respond(name, phone, url, destruct) {
-  controller.on('user_typing', (bot, message) => {
+  controller.hears(['ready'], ['direct_message'], (bot, message) => {
     if (destruct) {
       bot.reply(message, 'self-destructing now....');
       setTimeout(bot.destroy.bind(bot), 1000);
@@ -74,13 +74,17 @@ function askWhereDeliver(response, convo) {
         const location = convo3.extractResponse('location');
 
         // integrate Yelp search
-        yelp.search({ term, location, radius_filter: miles, limit: 3 })
+        yelp.search({ term, location, radius_filter: miles, limit: 1 })
         .then((data) => {
+          /*
           data.businesses.forEach(business => {
             console.log(business.name);
-            respond(business.name, business.phone, business.url, false);
+            respond(data.businesses[0]name, data.businesses[0].phone, data.businesses[0].url, false);
           });
-          respond('', '', '', true);
+          */
+        //  respond('', '', '', true);
+      //    console.log(data.businesses[0].name);
+          respond(data.businesses[0].name, data.businesses[0].phone, data.businesses[0].url, false);
         })
           .catch((err) => {
             console.error(err);
