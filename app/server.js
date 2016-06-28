@@ -41,19 +41,24 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
 
 // added code for outgoing webhook
 controller.on('outgoing_webhook', (bot, message) => {
+  console.log(bot);
+  console.log(message);
+  bot.replyPublic(message, '(sigh) fiiiine...');
+
+  /*
   bot.api.channels.history({ channel: message.channel }, (err, res) => {
     console.log(res);
     console.log(typeof res);
-
+    console.log(message);
     bot.replyPublic(message, 'yeahhhh.....');
-  });
+*/
+//  });  // history
 });
 
 // example hello response
 controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   bot.api.users.info({ user: message.user }, (err, res) => {
     if (res) {
-      console.log(res.user.name);
       bot.reply(message, `Hello, ${res.user.name}!`);
     } else {
       bot.reply(message, 'Hello there!');
@@ -61,6 +66,24 @@ controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 
   });
 });
 
+/*
+// let's make him hear more
+controller.hears(['yeahhhh'], ['direct_message', 'ambient'], (bot, message) => {
+  bot.api.im.history({ channel: message.channel }, (err, res) => {
+    if (res) {
+      console.log(res);
+      console.log(typeof res);
+      console.log(res.latest);
+      console.log(message);
+      bot.reply(message, 'I like the enthusiasm!');
+
+    } else {
+      bot.reply(message, '...yeah?');
+    }
+  });
+});
+
+*/
 controller.hears(['hungry'], ['direct_message', 'direct_mention'], (bot, message) => {
   bot.startConversation(message, askTerm);
 });
