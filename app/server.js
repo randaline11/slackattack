@@ -3,6 +3,9 @@ import botkit from 'botkit';
 // in older js this would be: var botkit = require('botkit')
 import Yelp from 'yelp';
 
+// attempt to use webhook token
+const DOMAIN_OUT_TOKEN = 'ZWbHwUaC41EhAChhlDOFGkEP';
+
 const yelp = new Yelp({
   consumer_key: 'Et9qZ2uKjg6Tm3kEg3jMWA',
   consumer_secret: '1cjQXnCi-0EneFYa5qhE3mbw4Rw',
@@ -18,6 +21,10 @@ const controller = botkit.slackbot({
 // initialize slackbot
 const slackbot = controller.spawn({
   token: process.env.SLACK_BOT_TOKEN,
+
+  // maybe?
+  domain_out_token: DOMAIN_OUT_TOKEN,
+
   // this grabs the slack token we exported earlier
 }).startRTM(err => {
   // start the real time message client
@@ -30,6 +37,12 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
   controller.createWebhookEndpoints(webserver, slackbot, () => {
     if (err) { throw new Error(err); }
   });
+});
+
+// added code for outgoing webhook
+controller.on('outgoing_webhook', (bot, message) => {
+  bot.replyPublic(message, 'yeah yeah');
+  bot.reply(message, 'yeah yeah');
 });
 
 // example hello response
