@@ -41,14 +41,19 @@ controller.setupWebserver(process.env.PORT || 3001, (err, webserver) => {
 
 // added code for outgoing webhook
 controller.on('outgoing_webhook', (bot, message) => {
-  bot.replyPublic(message, 'yeah yeah');
-  bot.reply(message, 'yeah yeah');
+  bot.api.channels.history({ channel: message.channel }, (err, res) => {
+    console.log(res);
+    console.log(typeof res);
+
+    bot.replyPublic(message, 'yeahhhh.....');
+  });
 });
 
 // example hello response
 controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
   bot.api.users.info({ user: message.user }, (err, res) => {
     if (res) {
+      console.log(res.user.name);
       bot.reply(message, `Hello, ${res.user.name}!`);
     } else {
       bot.reply(message, 'Hello there!');
