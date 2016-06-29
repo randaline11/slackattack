@@ -1,8 +1,8 @@
 {
-  "name": "slackattack",
-  "version": "1.0.0",
+  "name": "mr-tron",
+  "version": "2.0.0",
   "description": "",
-  "author": "Tim Tregubov",
+  "author": "Tim Tregubov and Abby Starr",
   "main": "app/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
