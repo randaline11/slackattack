@@ -244,16 +244,16 @@ controller.hears(['hello', 'hi', 'howdy'], ['direct_message', 'direct_mention',
   bot.api.users.info({ user: message.user }, (err, res) => {
     if (res) {
       bot.reply(message, `Hello, ${res.user.name}!`);
-      console.log(googleCreds.TYPE);
-      console.log(googleCreds.PROJECT_ID);
-      console.log(googleCreds.PRIVATE_KEY_ID);
-      console.log(googleCreds.PRIVATE_KEY);
-      console.log(googleCreds.CLIENT_EMAIL);
-      console.log(googleCreds.CLIENT_ID);
-      console.log(googleCreds.AUTH_URI);
-      console.log(googleCreds.TOKEN_URI);
-      console.log(googleCreds.AUTH_PROVIDER_X509_CERT_URL);
-      console.log(googleCreds.CLIENT_X509_CERT_URL);
+      console.log(googleCreds.type);
+      console.log(googleCreds.project_id);
+      console.log(googleCreds.private_key_id);
+      console.log(googleCreds.private_key);
+      console.log(googleCreds.client_email);
+      console.log(googleCreds.client_id);
+      console.log(googleCreds.auth_uri);
+      console.log(googleCreds.token_uri);
+      console.log(googleCreds.auth_provider_x509_cert_url);
+      console.log(googleCreds.client_x509_cert_url);
     } else {
       bot.reply(message, 'Hello there!');
     }
